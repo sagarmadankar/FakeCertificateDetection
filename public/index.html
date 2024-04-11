@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Upload</title>
+<style>
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+</style>
+</head>
+<body>
+    <div id="result">
+<div class="container">
+    <h2>Upload Image</h2>
+    <form id="imageForm" enctype="multipart/form-data">
+        <input type="file" id="imageInput" accept="image/*" required>
+        <button type="submit">Upload</button>
+    </form>
+</div>
+    </div>
+
+
+<script>
+    document.getElementById('imageForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fileInput = document.getElementById('imageInput');
+        const file = fileInput.files[0];
+
+        // Create FormData object to send the file
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            // Send the image file to the server for processing (you may need to adjust the URL)
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Assuming the server responds with the path to the uploaded image in JSON format
+            const { imagePath } = await response.json();
+
+            // Save the image path to path.json
+            const pathData = { path: imagePath };
+            const jsonData = JSON.stringify(pathData);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'path.json';
+            a.click();
+
+            // Redirect to another webpage based on the process in path.json
+            window.location.href = '/process';
+        } catch (error) {
+            console.error('Error uploading image:', error);
+        }
+    });
+
+    // Assuming 'verdict.json' contains the verdict value (true or false)
+// Assuming 'verdict.json' contains the verdict value (true or false)
+fetch('verdict.json')
+    .then(response => response.json())
+    .then(data => {
+        const resultElement = document.getElementById('result');
+        if (data.verdict) {
+            resultElement.innerText = 'The Document is authentic';
+            resultElement.style.color = 'green';
+        } else {
+            resultElement.innerText = 'The Document is FORGED';
+            resultElement.style.color = 'red';
+        }
+    })
+    .catch(error => console.error('Error fetching verdict:', error));
+
+</script>
+</body>
+</html>
