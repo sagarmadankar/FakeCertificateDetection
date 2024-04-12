@@ -2,7 +2,7 @@ const vision = require('@google-cloud/vision');
 const Jimp = require('jimp');
 const jsQR = require('jsqr');
 const fs = require('fs');
-const imagePath = '';
+const imagePath = 'path.json';
 const SectorPath = 'left_bottom_sector.jpg';
 
 const CREDENTIALS = JSON.parse(JSON.stringify({
@@ -29,7 +29,7 @@ const CONFIG = {
 
 const client = new vision.ImageAnnotatorClient(CONFIG);
 
-const jsonFilePath = 'image.json';
+const jsonFilePath = 'result.json';
 
 const detectTextAndSave = async (file_path) => {
     try {
@@ -60,10 +60,10 @@ const detectTextAndSave = async (file_path) => {
 // Example usage
 detectTextAndSave(imagePath);
 
-async function scanQRCodeFromImage(imagePath) {
+async function scanQRCodeFromImage(leftpath) {
     try {
       // Read the image file using Jimp
-      const image = await Jimp.read(imagePath);
+      const image = await Jimp.read(leftpath);
   
       // Convert the image to raw pixel data
       const { data, width, height } = image.bitmap;
@@ -76,7 +76,7 @@ async function scanQRCodeFromImage(imagePath) {
         console.log(code.data);
   
         // Save the detected QR code to a JSON file
-        const jsonFilePath = 'qrResult.json';
+        const jsonFilePath = 'qrresult.json';
         const jsonData = {
           detectedQRCode: code.data,
         };

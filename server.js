@@ -31,7 +31,7 @@ app.post('/upload', upload.single('image'), (req, res) => {
         fs.writeFileSync('path.json', JSON.stringify(pathData));
 
         // Redirect to another webpage based on the process in path.json
-        res.redirect('/process');
+        res.redirect('index2.html');
     } catch (error) {
         console.error('Error uploading image:', error);
         res.status(500).send('Error uploading image');

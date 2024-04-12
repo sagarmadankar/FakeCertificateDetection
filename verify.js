@@ -17,8 +17,8 @@ async function extractLeftBottomSector(inputPath, outputPath) {
 
         // Calculate coordinates for the left-bottom sector
         const left = 0;
-        const top = Math.floor(height / 2); // Top is set to half of the image height
-        const right = Math.floor(width / 2); // Right is set to half of the image width
+        const top = Math.floor(height / 1.5); // Top is set to half of the image height
+        const right = Math.floor(width / 4); // Right is set to half of the image width
         const bottom = height; // Bottom is set to the full image height
 
         // Crop and save the image using the calculated coordinates

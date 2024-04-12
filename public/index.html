@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -54,12 +54,14 @@
             a.download = 'path.json';
             a.click();
 
-            // Redirect to another webpage based on the process in path.json
-            window.location.href = '/process';
+            // // Redirect to another webpage based on the process in path.json
+            // window.location.href = '/process';
         } catch (error) {
             console.error('Error uploading image:', error);
         }
     });
+ 
+    
 
     // Assuming 'verdict.json' contains the verdict value (true or false)
 // Assuming 'verdict.json' contains the verdict value (true or false)
@@ -80,3 +82,6 @@ fetch('verdict.json')
 </script>
 </body>
 </html>
+
+ 
+ 
